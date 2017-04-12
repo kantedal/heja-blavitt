@@ -14,3 +14,15 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.content-md {
+  background-color: #0c60ee;
+}
+
+.md .menu-inner {
+  background: rgba(0,0,0,0.3);
+}
+
+.split-pane-md.split-pane-visible > .split-pane-side {
+  border-right: none;
+}

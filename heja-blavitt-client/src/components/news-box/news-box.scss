@@ -1,0 +1,24 @@
+.news-container {
+  color: #fff;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.news-header {
+  font-size: 13pt;
+  line-height: 25pt;
+  max-height: 25pt;
+  font-weight: 200;
+  overflow: hidden;
+}
+
+.news-content {
+  display: block; /* or inline-block */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.55em;
+  line-height: 1.2em;
+}

@@ -13,7 +13,8 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
 
-
+$split-pane-side-min-width: 200px;
+$split-pane-side-max-width: 200px;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -30,6 +31,11 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222
 );
+
+$toolbar-background: rgba(0,0,0,0.2);
+$tabs-background: rgba(0,0,0,0.2);
+$tabs-tab-color-inactive: rgba(255, 255, 255, 1.0);
+$tabs-tab-color-active: rgba(255, 255, 255, 1.0);
 
 
 // App iOS Variables
