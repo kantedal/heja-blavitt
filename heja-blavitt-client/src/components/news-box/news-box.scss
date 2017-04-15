@@ -1,9 +1,8 @@
 .news-container {
   color: #fff;
-  height: 100px;
+  height: 120px;
   width: 100%;
   overflow: hidden;
-  padding: 10px;
 }
 
 .news-header {
@@ -21,4 +20,34 @@
   overflow: hidden;
   max-height: 3.55em;
   line-height: 1.2em;
+}
+
+.news-grid {
+  width: calc(100% - 60px);
+  margin-left: 60px;
+}
+
+.vote-grid {
+  position: absolute;
+  left: 0px;
+  width: 50px;
+  height: 120px;
+}
+
+.vote-icon {
+  margin: auto;
+  font-size: 30px;
+}
+
+.vote-count {
+  margin: auto;
+  font-size: 23px;
+  font-weight: 200;
+}
+
+.news-bottom-row {
+  height: 15px;
+  font-weight: 200;
+  font-size: 12px;
+
 }

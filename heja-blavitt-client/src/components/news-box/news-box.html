@@ -1,4 +1,30 @@
 <div class="news-container" [style.background-color]="getBackground()">
-  <div class="news-header" [innerHtml]="titleHTML"></div>
-  <div class="news-content" [innerHtml]="contentHTML"></div>
+  <ion-grid no-padding class="vote-grid">
+    <ion-row style="height: 33%">
+      <ion-icon class="vote-icon" name="ios-arrow-up"></ion-icon>
+    </ion-row>
+    <ion-row style="height: 33%">
+      <div class="vote-count">0</div>
+    </ion-row>
+    <ion-row style="height: 33%">
+      <ion-icon class="vote-icon" name="ios-arrow-down"></ion-icon>
+    </ion-row>
+  </ion-grid>
+  <ion-grid no-padding class="news-grid">
+    <ion-row style="height: 100px;">
+      <ion-col>
+        <div class="news-header" [innerHtml]="titleHTML"></div>
+        <div class="news-content" [innerHtml]="contentHTML"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="news-bottom-row">
+      <ion-col>
+        {{newsItem.source}}
+      </ion-col>
+      <ion-col>
+        2015-03-01 15:32
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>
+

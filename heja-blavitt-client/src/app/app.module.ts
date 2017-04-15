@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {NewsPage} from "../pages/news/news";
 import {NewsBoxComponent} from "../components/news-box/news-box";
+import {NewsService} from '../services/news.service'
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {NewsBoxComponent} from "../components/news-box/news-box";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    NewsService
   ]
 })
 export class AppModule {}

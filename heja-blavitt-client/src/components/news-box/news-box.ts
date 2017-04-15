@@ -1,18 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as striptags from 'striptags';
-import {NewsItem} from "../../models/news-item.model";
+import NewsItem from "../../models/news-item.model";
 
 @Component({
   selector: 'news-box',
   templateUrl: 'news-box.html'
 })
 export class NewsBoxComponent implements OnInit {
-  @Input() newsItem: NewsItem;
-  @Input() newsIndex: number;
+  @Input() newsItem: NewsItem
+  @Input() newsIndex: number
 
-  titleHTML: string;
-  contentHTML: string;
-  isEven: boolean = false;
+  titleHTML: string
+  contentHTML: string
+  isEven: boolean = false
 
   constructor() {}
 
