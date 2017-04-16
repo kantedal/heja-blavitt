@@ -13,6 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {NewsPage} from "../pages/news/news";
 import {NewsBoxComponent} from "../components/news-box/news-box";
 import {NewsService} from '../services/news.service'
+import {MenuItemComponent} from '../components/menu-item/menu-item'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {NewsService} from '../services/news.service'
     HomePage,
     TabsPage,
 
-    NewsBoxComponent
+    NewsBoxComponent,
+    MenuItemComponent
   ],
   imports: [
     BrowserModule,
