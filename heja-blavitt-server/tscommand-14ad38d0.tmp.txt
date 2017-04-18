@@ -1,0 +1,1 @@
+src/interfaces/news-item.ts src/interfaces/user.ts src/models/model.ts src/models/news-item.ts src/models/user.ts src/routes/index.ts src/routes/route.ts src/schemas/user.ts src/server.ts src/test/user.ts src/.baseDir.ts --removeComments --experimentalDecorators --target ES6 --module commonjs --outDir ./dist

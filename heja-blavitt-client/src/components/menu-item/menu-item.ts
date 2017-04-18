@@ -8,7 +8,6 @@ export class MenuItemComponent implements OnInit {
   @Input() title: string
   @Input() icon: string
   @Input() isSelected: boolean
-  @Input() newsIndex: number
 
   constructor() {}
 
