@@ -14,13 +14,16 @@ import {newsSchema} from './schemas/news'
 import {INewsItemModel} from './models/news-item' //import userSchema
 import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
-import mongoose = require("mongoose"); //import mongoose
+import mongoose = require("mongoose");
+import {NewsFetcher} from './news-fetcher/news-fetcher'
+import {Model} from 'mongoose' //import mongoose
 
 export class Server {
 
   public app: express.Application
   public server: any
   private model: IModel
+  private news: Model<INewsItemModel>;
 
   public static bootstrap(): Server {
     return new Server();
@@ -63,31 +66,39 @@ export class Server {
     router.get('/test', (req, res) => {
       console.log('test')
 
-      let news = new this.model.newsItem({
-        title: 'test test',
-        content: 'dålig match',
-        source: 'ab'
-      })
-
-      news.save().then(result => {
-        console.log(result)
-      })
-
-      res.json({ message: 'test test' });
+      // let news = new this..newsItem({
+      //   title: 'test test',
+      //   content: 'dålig match',
+      //   source: 'ab'
+      // })
+      //
+      // news.save().then(result => res.json({ message: result }))
     });
+
+    router.get('/getNews', (req, res) => {
+      this.news.find({}, function(err, news) {
+        if (err) throw err;
+        console.log(news);
+        res.json({ news })
+      })
+    })
+
+    router.get('/getUsers', (req, res) => {
+      this.news.find({}, function(err, news) {
+        if (err) throw err;
+        console.log(news);
+        res.json({ news })
+      })
+    })
 
     this.app.use('/api', router);
   }
 
   public config() {
-    const MONGODB_CONNECTION: string = "mongodb://localhost:27017/heros";
+    const MONGODB_CONNECTION: string = "mongodb://localhost:27017/hejablavitt";
 
     //add static paths
     this.app.use(express.static(path.join(__dirname, "public")));
-
-    //configure pug
-    this.app.set("views", path.join(__dirname, "views"));
-    this.app.set("view engine", "pug");
 
     //mount logger
     //this.app.use(logger("dev"));
@@ -115,7 +126,9 @@ export class Server {
 
     //create models
     this.model.user = connection.model<IUserModel>("User", userSchema);
-    this.model.newsItem = connection.model<INewsItemModel>("NewsItem", newsSchema);
+    //this.model.newsItem = connection.model<INewsItemModel>("NewsItem", newsSchema);
+
+    this.news = connection.model<INewsItemModel>("NewsItem", newsSchema)
 
     // catch 404 and forward to error handler
     this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -125,6 +138,9 @@ export class Server {
 
     //error handling
     this.app.use(errorHandler());
+
+    let newsFetcher = new NewsFetcher(this.news)
+    newsFetcher.run()
   }
 
   private routes() {

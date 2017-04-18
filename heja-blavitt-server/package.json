@@ -11,6 +11,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "request": "^2.79.0",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "errorhandler": "^1.4.3",

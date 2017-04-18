@@ -1,20 +1,16 @@
 import { Schema } from "mongoose";
 import moment = require('moment')
 
-export const newsSchema: Schema = new Schema({
+export let newsSchema: Schema = new Schema({
   createdAt: Number,
-  test: Number,
+  updatedAt: Number,
   title: String,
   content: String,
   source: String
-});
+})
 
-newsSchema.pre('save', (next) => {
-  this.createdAt = moment().valueOf()
-  this.test = moment().valueOf()
-  console.log('save news',  moment().valueOf(), this.createdAt)
-
+newsSchema.pre('save', function(next) {
+  if (!this.createdAt) this.createdAt = moment().valueOf()
+  this.updatedAt = moment().valueOf()
   next();
-});
-
-//export class NewsMode
+})
