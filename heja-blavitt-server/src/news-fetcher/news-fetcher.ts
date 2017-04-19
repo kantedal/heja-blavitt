@@ -3,22 +3,37 @@ import * as request from 'request'
 import {Feeds} from './feeds'
 import {SearchWords} from './search-words'
 import {Model} from 'mongoose'
-import {IINewsItemRSSModel} from '../models/news-item'
+import {INewsItemModel} from "../database/models/news-item";
+import {NewsModel} from "../server";
 
 const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=';
 const API_KEY = '&api_key=omchsk2zbyq4l1cinhzq9dbcta20snqy9yvpguf5';
 const API_SETTINGS = '&count=20';
 
 export class NewsFetcher {
-  constructor(private news: Model<IINewsItemRSSModel>) {}
+  constructor() {}
 
-  private createNewsItem(newsItemRss: INewsItemRSS) {
-    let newsItem = new this.news({
+  private createNewsItem(newsItemRss: INewsItemRSS, feed: IFeed) {
+    let update = {
+      pubDate: moment(newsItemRss.pubDate).valueOf(),
+      title: newsItemRss.title,
+      content: newsItemRss.content,
+      source: Feeds[feed.url].name,
+      url: newsItemRss.link,
+      imgUrl: newsItemRss.thumbnail ? newsItemRss.thumbnail : null,
+      votes: 0,
+      comments: []
+    }
 
-    })
+    NewsModel.findOneAndUpdate(
+      { newsId: newsItemRss.id },
+      { $setOnInsert: update },
+      { upsert: true },
+      (error, result) => {}
+    )
   }
 
-  private allowedNewsSource(INewsItemRSS: INewsItemRSS, feed: Feed): boolean {
+  private allowedNewsSource(INewsItemRSS: INewsItemRSS, feed: IFeed): boolean {
     if (INewsItemRSS.title == '' || INewsItemRSS.content == '') return false
     if (INewsItemRSS.title == null || INewsItemRSS.content == null) return false
 
@@ -35,23 +50,22 @@ export class NewsFetcher {
 
   public run() {
     for (let feedUrl in Feeds) {
-      let req = API_URL + feedUrl + API_KEY + API_SETTINGS;
+      let req = API_URL + feedUrl + API_KEY + API_SETTINGS
       request(req, (error, response, body) => {
         if (!error && response.statusCode == 200) {
-          let data = JSON.parse(body);
+          let data = JSON.parse(body)
 
-          let feed: Feed = data.feed;
-          let INewsItemRSSs: Array<INewsItemRSS> = data.items;
+          let feed: IFeed = data.feed
+          let newsItems: INewsItemRSS[] = data.items
 
-          if (INewsItemRSSs != null) {
-            for (let INewsItemRSS of INewsItemRSSs) {
-              let id = ((INewsItemRSS.title.toLowerCase() + '-' + INewsItemRSS.pubDate).split(' ').join('-')).replace(/\./g,'-').replace(/[\r\n]/g, "-").replace('/', '-');
+          if (newsItems != null) {
+            for (let newsItem of newsItems) {
+              let id = ((newsItem.title.toLowerCase() + '-' + newsItem.pubDate).split(' ').join('-')).replace(/\./g,'-').replace(/[\r\n]/g, "-").replace('/', '-')
 
-              if (this.allowedNewsSource(INewsItemRSS, feed)) {
-                if (INewsItemRSS.title != <string>"" || INewsItemRSS.title != null || INewsItemRSS.title != <string>" ") {
-                  INewsItemRSS.id = id
-                  INewsItemRSS.pubDate = moment(INewsItemRSS.pubDate).valueOf()
-                  console.log(INewsItemRSS)
+              if (this.allowedNewsSource(newsItem, feed)) {
+                if (newsItem.title != <string>"" || newsItem.title != null || newsItem.title != <string>" ") {
+                  newsItem.id = id
+                  this.createNewsItem(newsItem, feed)
                 }
               }
             }
@@ -70,11 +84,16 @@ interface INewsItemRSS {
   author: string
   thumbnail: string
   description: string
+  enclosure: {
+    link: string
+    type: string
+    length: number
+  }
   content: string
   contentSnippet: string
 }
 
-interface Feed {
+interface IFeed {
   url: string;
   title: string;
   link: string;

@@ -1,8 +1,8 @@
 import { suite, test } from "mocha-typescript";
-import { IUser } from "../interfaces/user";
 import { IUserModel } from "../models/user";
 import { userSchema } from "../schemas/user";
 import mongoose = require("mongoose");
+import {IUser} from "../../interfaces/user";
 
 @suite
 class UserTest {

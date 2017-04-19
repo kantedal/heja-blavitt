@@ -1,5 +1,5 @@
 import {Document} from 'mongoose'
-import {INewsItem} from '../interfaces/news-item'
+import {INewsItem} from "../../interfaces/news-item";
 
 export interface INewsItemModel extends INewsItem, Document {
   //custom methods for your model would be defined here
