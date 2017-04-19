@@ -14,6 +14,7 @@ import {NewsPage} from "../pages/news/news";
 import {NewsBoxComponent} from "../components/news-box/news-box";
 import {NewsService} from '../services/news.service'
 import {MenuItemComponent} from '../components/menu-item/menu-item'
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MenuItemComponent} from '../components/menu-item/menu-item'
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
