@@ -1,0 +1,26 @@
+.user-container {
+  position: absolute;
+  bottom: 0px;
+  width:100%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  height: 50px;
+}
+
+.login-container {
+  font-size: 16px;
+  font-weight: 600;
+  height: 100%;
+  width: 100%;
+  line-height: 50px;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+}
+
+.login-icon {
+  font-size: 20px;
+  vertical-align: middle;
+  margin: auto;
+  margin-right: 5px;
+}

@@ -8,9 +8,7 @@
   <ion-split-pane>
     <!--  our side menu  -->
     <ion-menu [content]="content">
-      <ion-grid no-padding>
-        <menu-item *ngFor="let page of pages" [title]="page.title" [icon]="page.icon" [isSelected]="page.isSelected" (click)="selectMenuItem(page)"></menu-item>
-      </ion-grid>
+      <side-menu></side-menu>
     </ion-menu>
 
     <!-- the main content -->

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {BehaviorSubject, Observable} from 'rxjs'
 import NewsItem from '../models/news-item.model'
-import {Http, Response} from "@angular/http";
+import {Http, Response, Headers, URLSearchParams, RequestOptions} from "@angular/http";
 
 @Injectable()
 export class NewsService {
@@ -16,13 +16,28 @@ export class NewsService {
         let body = res.json()
 
         let news: NewsItem[] = []
-        console.log(body)
         for (let newsJson of body.news) {
           news.push(NewsItem.mapFromJSON(newsJson))
         }
 
-        console.log(news)
         this._news.next(news)
+      })
+  }
+
+  public voteNews(newsItem: NewsItem, vote: number) {
+    let bodyString = JSON.stringify({ newsId: newsItem.newsId, vote }); // Stringify payload
+    let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+    let options       = new RequestOptions({ headers: headers });
+
+    this.http.put('http://localhost:8080/api/voteNews', bodyString, options)
+      .toPromise()
+      .then((res: any) => {
+        newsItem.votes = JSON.parse(res._body).newCount
+        console.log(JSON.parse(res._body))
+        console.log(newsItem)
+      })
+      .catch(err => {
+        console.log(err)
       })
   }
 

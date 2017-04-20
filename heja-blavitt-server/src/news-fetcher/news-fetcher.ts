@@ -16,8 +16,8 @@ export class NewsFetcher {
   private createNewsItem(newsItemRss: INewsItemRSS, feed: IFeed) {
     let update = {
       pubDate: moment(newsItemRss.pubDate).valueOf(),
-      title: newsItemRss.title,
-      content: newsItemRss.content,
+      title: newsItemRss.title.replace(/&amp;quot;/g, '"'),
+      content: newsItemRss.content.replace(/&amp;quot;/g, '"'),
       source: Feeds[feed.url].name,
       url: newsItemRss.link,
       imgUrl: newsItemRss.thumbnail ? newsItemRss.thumbnail : null,

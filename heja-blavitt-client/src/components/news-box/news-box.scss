@@ -37,6 +37,7 @@
   align-items: center;
   display: flex;
   padding-left: 10px;
+  max-width: 35px;
 }
 
 
@@ -48,6 +49,7 @@
 .news-vote-icon {
   margin: auto;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .news-vote-count {

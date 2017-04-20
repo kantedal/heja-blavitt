@@ -1,6 +1,6 @@
 {
   "name": "heja-blavitt-client",
-  "app_id": "",
+  "app_id": "heja-blavitt",
   "v2": true,
   "typescript": true
 }

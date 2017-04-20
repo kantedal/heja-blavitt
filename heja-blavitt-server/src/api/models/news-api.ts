@@ -18,9 +18,20 @@ export default class NewsAPI {
     /*
      Vote news call
      */
-    router.post('/voteNews', (req, res) => {
-      console.log(req.query)
-      res.json(req.query)
+    router.put('/voteNews', (req, res) => {
+      let newsId = req.body.newsId
+      let vote = parseInt(req.body.vote)
+
+      NewsModel.findOneAndUpdate(
+        { newsId: newsId },
+        { $inc : { votes: vote } },
+        { upsert : true },
+        (error, newsItem) => {
+          if (!error) {
+            res.json({ newCount: newsItem.votes + vote })
+          }
+        }
+      )
     })
   }
 }

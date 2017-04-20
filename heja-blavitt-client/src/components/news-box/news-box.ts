@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as striptags from 'striptags';
 import NewsItem from "../../models/news-item.model";
+import {NewsService} from "../../services/news.service";
 
 @Component({
   selector: 'news-box',
@@ -14,7 +15,7 @@ export class NewsBoxComponent implements OnInit {
   contentHTML: string
   isEven: boolean = false
 
-  constructor() {}
+  constructor(public newsService: NewsService) {}
 
   getBackground() {
     return this.isEven ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.1)'

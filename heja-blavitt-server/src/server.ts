@@ -32,7 +32,8 @@ export class Server {
   }
 
   public config() {
-    const MONGODB_CONNECTION: string = "mongodb://localhost:27017/hejablavitt";
+    //const MONGODB_CONNECTION: string = "mongodb://localhost:27017/hejablavitt";
+    const MONGODB_CONNECTION: string = "mongodb://admin:gye4QYUiF@ds163940.mlab.com:63940/heja-blavitt";
 
     this.app.use(express.static(path.join(__dirname, "public")));
     this.app.use(bodyParser.json());
