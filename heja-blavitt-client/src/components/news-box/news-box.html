@@ -8,7 +8,7 @@
             (click)="newsService.voteNews(newsItem, 1)"
             class="news-vote-icon"
             name="ios-arrow-up"
-            [style.opacity]="userVote == -1 ? 0.2 : 1.0"
+            [style.opacity]="newsItem.currentUserVote == -1 ? 0.2 : 1.0"
           ></ion-icon>
         </ion-row>
         <ion-row class="news-vote-button">
@@ -21,7 +21,7 @@
             (click)="newsService.voteNews(newsItem.newsId, -1)"
             class="news-vote-icon"
             name="ios-arrow-down"
-            [style.opacity]="userVote == 1 ? 0.2 : 1.0">
+            [style.opacity]="newsItem.currentUserVote == 1 ? 0.2 : 1.0">
           </ion-icon>
         </ion-row>
       </div>

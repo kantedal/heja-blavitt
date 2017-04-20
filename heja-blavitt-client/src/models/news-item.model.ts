@@ -1,4 +1,6 @@
 export default class NewsItem {
+  currentUserVote: number = 0
+
   constructor(
     public newsId: string,
     public id: string,
