@@ -37,9 +37,24 @@
   align-items: center;
   display: flex;
   padding-left: 10px;
-  max-width: 35px;
+  max-width: 40px;
 }
 
+.link-content-col {
+  margin:0;
+  padding: 0;
+  align-items: center;
+  display: flex;
+  padding-left: 25px;
+  max-width: 50px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.news-col {
+  padding-left: 10px;
+  min-width: calc(100% - 100px);
+}
 
 .news-vote-button {
   height: 30px;
@@ -59,9 +74,6 @@
   font-weight: 200;
 }
 
-.news-col {
-  padding-left: 10px;
-}
 
 .vote-panel {
 

@@ -5,6 +5,7 @@ import { SpinnerModule } from 'angular2-spinner';
 import {MyApp} from "./app.component";
 import {StatusBar} from "@ionic-native/status-bar";
 import {SplashScreen} from "@ionic-native/splash-screen";
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import {NewsPage} from "../pages/news/news";
 import {NewsBoxComponent} from "../components/news-box/news-box";
 import {NewsService} from "../services/news.service";
@@ -43,6 +44,7 @@ import {SideMenuComponent} from "../components/side-menu/side-menu";
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
     NewsService,
     UserService,

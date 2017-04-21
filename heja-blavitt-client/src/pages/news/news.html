@@ -1,6 +1,11 @@
 <ion-content>
   <ion-list style="padding:0px;">
-    <news-box *ngFor="let newsItem of news; let i = index" [newsItem]="newsItem" (onClick)="openNews(newsItem)" [newsIndex]="i"></news-box>
+    <news-box
+      *ngFor="let newsItem of news; let i = index"
+      [newsItem]="newsItem"
+      [newsIndex]="i"
+    ></news-box>
+
     <div class="bottom-spinner">
       <spinner [size]="35" [tickness]="2" [color]="'#ffffff'"></spinner>
     </div>

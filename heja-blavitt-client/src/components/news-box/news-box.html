@@ -18,7 +18,7 @@
         </ion-row>
         <ion-row class="news-vote-button">
           <ion-icon
-            (click)="newsService.voteNews(newsItem.newsId, -1)"
+            (click)="newsService.voteNews(newsItem, -1)"
             class="news-vote-icon"
             name="ios-arrow-down"
             [style.opacity]="newsItem.currentUserVote == 1 ? 0.2 : 1.0">
@@ -27,9 +27,9 @@
       </div>
     </ion-col>
 
-    <ion-col class="news-col" col-11>
+    <ion-col class="news-col" col-10>
       <ion-row>
-        <ion-col (click)="newsClick(newsItem)" class="news-content-col">
+        <ion-col class="news-content-col">
           <div class="news-header" [innerHtml]="titleHTML"></div>
           <div class="news-content" [innerHtml]="contentHTML"></div>
         </ion-col>
@@ -42,6 +42,10 @@
           {{dateString}}
         </ion-col>
       </ion-row>
+    </ion-col>
+
+    <ion-col class="link-content-col" col-1>
+      <ion-icon (click)="openNews()" name="ios-open-outline"></ion-icon>
     </ion-col>
   </ion-row>
 

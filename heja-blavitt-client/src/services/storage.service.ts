@@ -20,7 +20,7 @@ export class StorageService {
     this.votedNews = {}
   }
 
-  get votedNews() { return JSON.parse(localStorage.getItem('votedNews')) }
+  get votedNews() { return JSON.parse(localStorage.getItem(StorageTypes.VOTED_NEWS)) }
   set votedNews(newsIds: { [id: string]: number } ) { localStorage.setItem(StorageTypes.VOTED_NEWS, JSON.stringify(newsIds)) }
   storeVote(newsId: string, vote: number) {
     let votedNews = this.votedNews
