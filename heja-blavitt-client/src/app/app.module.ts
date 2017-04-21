@@ -15,6 +15,7 @@ import {UserService} from "../services/user.service";
 import {StorageService} from "../services/storage.service";
 import {LoginPage} from "../pages/login/login";
 import {SideMenuComponent} from "../components/side-menu/side-menu";
+import {DateFormatterPipe} from "../pipes/date-formatter.pipe";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import {SideMenuComponent} from "../components/side-menu/side-menu";
 
     SideMenuComponent,
     NewsBoxComponent,
-    MenuItemComponent
+    MenuItemComponent,
+
+    DateFormatterPipe
   ],
   imports: [
     BrowserModule,

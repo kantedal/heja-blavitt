@@ -27,26 +27,34 @@
       </div>
     </ion-col>
 
-    <ion-col class="news-col" col-10>
-      <ion-row>
+    <ion-col class="news-col" (click)="openNews()" col-11>
+      <ion-row style="margin-bottom: 20px">
         <ion-col class="news-content-col">
           <div class="news-header" [innerHtml]="titleHTML"></div>
           <div class="news-content" [innerHtml]="contentHTML"></div>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row style="position: absolute; bottom: 0; width: 100%">
         <ion-col class="news-footer-text">
           {{newsItem.source}}
         </ion-col>
         <ion-col class="news-footer-text">
-          {{dateString}}
+          {{newsItem.pubDate | dateFormatter}}
         </ion-col>
       </ion-row>
     </ion-col>
 
-    <ion-col class="link-content-col" col-1>
-      <ion-icon (click)="openNews()" name="ios-open-outline"></ion-icon>
-    </ion-col>
+    <!--<ion-col class="link-content-col" col-1>-->
+      <!--<ion-icon (click)="openNews()" name="ios-open-outline"></ion-icon>-->
+    <!--</ion-col>-->
   </ion-row>
+  <!--<ion-row>-->
+    <!--<ion-col>-->
+      <!--test-->
+    <!--</ion-col>-->
+    <!--<ion-col>-->
+      <!--test-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
 
 </ion-grid>

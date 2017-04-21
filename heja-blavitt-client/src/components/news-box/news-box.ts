@@ -23,10 +23,8 @@ export class NewsBoxComponent implements OnInit {
   ) {}
 
   openNews() {
-    console.log('open news')
     const browser = this.iab.create(this.newsItem.url);
     browser.show()
-    //new InAppBrowser(newsItem.url, '_blank', 'location=no,closebuttoncaption=Stäng');
   }
 
   getBackground() {

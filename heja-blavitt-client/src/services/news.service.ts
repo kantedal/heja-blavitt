@@ -18,10 +18,6 @@ export class NewsService {
   ) {
     this._news = new BehaviorSubject([])
     this.fetchNews()
-
-    this.news.subscribe((news) => {
-      console.log(news)
-    })
   }
 
   public fetchNews() {
@@ -54,20 +50,22 @@ export class NewsService {
   }
 
   public voteNews(newsItem: NewsItem, vote: number) {
-    let bodyString = JSON.stringify({ newsId: newsItem.newsId, vote }); // Stringify payload
-    let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-    let options = new RequestOptions({ headers: headers });
+    if (newsItem.currentUserVote == 0) {
+      let bodyString = JSON.stringify({ newsId: newsItem.newsId, vote }); // Stringify payload
+      let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+      let options = new RequestOptions({ headers: headers });
 
-    this.http.put('http://localhost:8080/api/voteNews', bodyString, options)
-      .toPromise()
-      .then((res: any) => {
-        newsItem.votes = JSON.parse(res._body).newCount
-        newsItem.currentUserVote = vote
-        this.storageService.storeVote(newsItem.newsId, vote)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      this.http.put('http://localhost:8080/api/voteNews', bodyString, options)
+        .toPromise()
+        .then((res: any) => {
+          newsItem.votes = JSON.parse(res._body).newCount
+          newsItem.currentUserVote = vote
+          this.storageService.storeVote(newsItem.newsId, vote)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 
   get news(): Observable<NewsItem[]> { return this._news.asObservable() }
