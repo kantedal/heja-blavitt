@@ -8,11 +8,17 @@ export default class NewsAPI {
       Fetch news call
      */
     router.get('/getNews', (req, res) => {
+      console.log(req.query.fetchCount)
+      let limit = parseInt(req.query.fetchCount)
+      let skip = parseInt(req.query.skip)
+
       NewsModel.find((err, news) => {
-        if (err) throw err;
-        res.json({ news })
-      })
-      .sort({'pubDate': -1})
+          if (err) throw err;
+          res.json({ news })
+        })
+        .sort({'pubDate': -1})
+        .limit(limit)
+        .skip(skip)
     })
 
     /*

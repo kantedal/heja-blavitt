@@ -9,6 +9,7 @@ import {EventTypes} from "../models/event-types";
 import {LoginPage} from "../pages/login/login";
 import {StorageService} from "../services/storage.service";
 
+
 @Component({
   templateUrl: 'app.html'
 })
