@@ -16,11 +16,15 @@ import {StorageService} from "../services/storage.service";
 import {LoginPage} from "../pages/login/login";
 import {SideMenuComponent} from "../components/side-menu/side-menu";
 import {DateFormatterPipe} from "../pipes/date-formatter.pipe";
+import {SettingsPage} from "../pages/settings/settings";
+import {DiscussionPage} from "../pages/discussion/discussion";
 
 @NgModule({
   declarations: [
     MyApp,
     NewsPage,
+    DiscussionPage,
+    SettingsPage,
     LoginPage,
 
     SideMenuComponent,
@@ -39,6 +43,8 @@ import {DateFormatterPipe} from "../pipes/date-formatter.pipe";
   entryComponents: [
     MyApp,
     NewsPage,
+    DiscussionPage,
+    SettingsPage,
     LoginPage,
 
     SideMenuComponent,

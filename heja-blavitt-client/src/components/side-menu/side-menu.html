@@ -1,5 +1,12 @@
 <ion-grid no-padding>
-  <menu-item *ngFor="let page of pages" [title]="page.title" [icon]="page.icon" [isSelected]="page.isSelected" (click)="selectMenuItem(page)"></menu-item>
+  <menu-item
+    *ngFor="let page of pages"
+    [title]="page.title"
+    [icon]="page.icon"
+    [isSelected]="page.isSelected"
+    (click)="selectMenuItem(page)">
+
+  </menu-item>
 </ion-grid>
 
 <div class="user-container">

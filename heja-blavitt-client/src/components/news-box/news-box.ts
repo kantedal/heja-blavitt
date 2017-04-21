@@ -32,7 +32,6 @@ export class NewsBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.newsItem.currentUserVote)
     this.titleHTML = striptags(this.newsItem.title, '');
     this.contentHTML = striptags(this.newsItem.content, '');
     this.isEven =  this.newsIndex === 0 || !!(this.newsIndex && !(this.newsIndex % 2));

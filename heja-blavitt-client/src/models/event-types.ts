@@ -3,5 +3,6 @@
  */
 
 export const EventTypes = {
-  OPEN_LOGIN_MODAL: 'login_modal'
+  CHANGE_PAGE: 'change_page',
+  OPEN_LOGIN_MODAL: 'login_modal',
 }

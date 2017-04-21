@@ -1,4 +1,6 @@
 import {NewsPage} from "../pages/news/news";
+import {SettingsPage} from "../pages/settings/settings";
+import {DiscussionPage} from "../pages/discussion/discussion";
 
 export interface IPage {
   page: any
@@ -15,13 +17,13 @@ export let Pages: IPage[] = [
     isSelected: true
   },
   {
-    page: NewsPage,
+    page: DiscussionPage,
     title: 'Diskussion',
     icon: 'ios-chatbubbles',
     isSelected: false
   },
   {
-    page: NewsPage,
+    page: SettingsPage,
     title: 'Inställningar',
     icon: 'ios-settings',
     isSelected: false

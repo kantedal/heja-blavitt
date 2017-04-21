@@ -8,6 +8,7 @@ import {IPage, Pages} from "../models/pages";
 import {EventTypes} from "../models/event-types";
 import {LoginPage} from "../pages/login/login";
 import {StorageService} from "../services/storage.service";
+import {SettingsPage} from "../pages/settings/settings";
 
 
 @Component({
@@ -37,16 +38,17 @@ export class MyApp implements AfterViewInit {
   }
 
   subscribeToEvents() {
+    this.events.subscribe(EventTypes.CHANGE_PAGE, (page: IPage) => {
+      this.currentPage.isSelected = false
+      this.currentPage = page
+      this.currentPage.isSelected = true
+      this.rootPage = page.page
+    })
+
     this.events.subscribe(EventTypes.OPEN_LOGIN_MODAL, () => {
       let loginModal = this.modalCtrl.create(LoginPage)
       loginModal.present()
     })
-  }
-
-  selectMenuItem(page: IPage) {
-    this.currentPage.isSelected = false
-    this.currentPage = page
-    this.currentPage.isSelected = true
   }
 
   ngAfterViewInit(): void {
