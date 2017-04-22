@@ -1,24 +1,30 @@
 import * as express from "express";
-import {NewsModel} from "../../server";
+import {NewsModel} from "../server";
+import {Feeds} from "../news-fetcher/feeds";
 
 export default class NewsAPI {
   constructor(router: express.Router) {
 
     /*
-      Fetch news call
+      Fetch news
      */
     router.get('/getNews', (req, res) => {
       let limit = parseInt(req.query.fetchCount)
       let skip = parseInt(req.query.skip)
 
       NewsModel.find((err, news) => {
-          if (err) throw err;
-          res.json({ news })
-        })
-        .sort({'pubDate': -1})
-        .limit(limit)
-        .skip(skip)
+        if (err) throw err;
+        res.json({ news })
+      })
+      .sort({'pubDate': -1})
+      .limit(limit)
+      .skip(skip)
     })
+
+    /*
+     Fetch news feeds
+     */
+    router.get('/getNewsFeeds', (req, res) => res.json({ Feeds }))
 
     /*
      Vote news call

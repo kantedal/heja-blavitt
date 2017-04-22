@@ -1,6 +1,21 @@
 <ion-content>
   <ion-list style="padding:0px;">
-    <div class="bottom-spinner">
+    <ion-list-header class="news-feed-title">Filtrera nyhetskällor</ion-list-header>
+
+    <ion-item
+      *ngFor="let feed of (newsService.newsFeeds | async); let i = index"
+      [style.background-color]="getBackground(i)"
+      class="news-feed-box"
+    >
+      <ion-label>{{feed.name}}</ion-label>
+      <ion-checkbox
+        color="light"
+        [checked]="storageService.disabledNewsFeeds[feed.name] == null"
+        (ionChange)="newsFeedChecked($event, feed)"
+      ></ion-checkbox>
+    </ion-item>
+
+    <div *ngIf="newsService.newsFeedsLoading" class="bottom-spinner">
       <spinner [size]="35" [tickness]="2" [color]="'#ffffff'"></spinner>
     </div>
   </ion-list>

@@ -18,6 +18,7 @@ import {SideMenuComponent} from "../components/side-menu/side-menu";
 import {DateFormatterPipe} from "../pipes/date-formatter.pipe";
 import {SettingsPage} from "../pages/settings/settings";
 import {DiscussionPage} from "../pages/discussion/discussion";
+import {NewsFilterPipe} from "../pipes/news-filter.pipe";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {DiscussionPage} from "../pages/discussion/discussion";
     NewsBoxComponent,
     MenuItemComponent,
 
-    DateFormatterPipe
+    DateFormatterPipe,
+    NewsFilterPipe
   ],
   imports: [
     BrowserModule,

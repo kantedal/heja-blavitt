@@ -1,9 +1,7 @@
-import * as moment from 'moment';
-import * as request from 'request'
-import {Feeds} from './feeds'
-import {SearchWords} from './search-words'
-import {Model} from 'mongoose'
-import {INewsItemModel} from "../database/models/news-item";
+import * as moment from "moment";
+import * as request from "request";
+import {Feeds} from "./feeds";
+import {SearchWords} from "./search-words";
 import {NewsModel} from "../server";
 
 const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=';
@@ -18,7 +16,7 @@ export class NewsFetcher {
       pubDate: moment(newsItemRss.pubDate).valueOf(),
       title: newsItemRss.title.replace(/&amp;quot;/g, '"'),
       content: newsItemRss.content.replace(/&amp;quot;/g, '"'),
-      source: Feeds[feed.url].name,
+      feedName: Feeds[feed.url].name,
       url: newsItemRss.link,
       imgUrl: newsItemRss.thumbnail ? newsItemRss.thumbnail : null,
       votes: 0,

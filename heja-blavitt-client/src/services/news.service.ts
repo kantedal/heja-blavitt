@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs'
 import NewsItem from '../models/news-item.model'
 import {Http, Response, Headers, URLSearchParams, RequestOptions} from "@angular/http";
 import {StorageService} from "./storage.service";
+import {INewsFeed} from "../interfaces/news-source";
 
 export const NEWS_FETCH_COUNT = 15
 
@@ -12,12 +13,36 @@ export class NewsService {
   private _fetchedNews: number = 0
   private _news: BehaviorSubject<NewsItem[]>
 
+  newsFeeds: BehaviorSubject<INewsFeed[]> = new BehaviorSubject([])
+  newsFeedsLoading: boolean = false
+
   constructor(
     public http: Http,
     public storageService: StorageService
   ) {
     this._news = new BehaviorSubject([])
     this.fetchNews()
+  }
+
+  public getNewsFeeds(): Promise<any> {
+    this.newsFeedsLoading = true
+    return this.http.get('http://localhost:8080/api/getNewsFeeds')
+    .toPromise()
+    .then((res: Response) => {
+      let body = res.json()
+
+      let feeds: INewsFeed[] = []
+      for (let feedId in body.Feeds) {
+        let feed = body.Feeds[feedId]
+        feeds.push({
+          name: feed.name,
+          id: feedId
+        })
+      }
+
+      this.newsFeeds.next(feeds)
+      this.newsFeedsLoading = false
+    })
   }
 
   public fetchNews() {
@@ -29,23 +54,23 @@ export class NewsService {
       params.set('fetchCount', NEWS_FETCH_COUNT.toString());
 
       this.http.get('http://localhost:8080/api/getNews', { search: params })
-        .toPromise()
-        .then((res: Response) => {
-          let body = res.json()
+      .toPromise()
+      .then((res: Response) => {
+        let body = res.json()
 
-          let storedNewsVotes = this.storageService.votedNews
-          let news: NewsItem[] = this._news.getValue()
-          for (let newsJson of body.news) {
-            let newsItem = NewsItem.mapFromJSON(newsJson)
-            newsItem.currentUserVote = storedNewsVotes[newsItem.newsId] ? storedNewsVotes[newsItem.newsId] : 0
-            news.push(newsItem)
-          }
+        let storedNewsVotes = this.storageService.votedNews
+        let news: NewsItem[] = this._news.getValue()
+        for (let newsJson of body.news) {
+          let newsItem = NewsItem.mapFromJSON(newsJson)
+          newsItem.currentUserVote = storedNewsVotes[newsItem.newsId] ? storedNewsVotes[newsItem.newsId] : 0
+          news.push(newsItem)
+        }
 
-          this._news.next(news)
+        this._news.next(news)
 
-          this._fetchedNews += 15
-          this._isFetchingNews = false
-        })
+        this._fetchedNews += 15
+        this._isFetchingNews = false
+      })
     }
   }
 

@@ -3,6 +3,7 @@ import {NavController, Content} from 'ionic-angular'
 import NewsItem from '../../models/news-item.model'
 import {NewsService} from '../../services/news.service'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'page-news',
@@ -16,22 +17,19 @@ export class NewsPage implements AfterViewInit {
   constructor(
     public navCtrl: NavController,
     public newsService: NewsService,
+    public storageService: StorageService,
     public zone: NgZone,
     public iab: InAppBrowser
   ) {
     this.news = []
     this.newsService.news.subscribe(news => {
-      this.zone.run(() => {
-        this.news = news
-      })
+      this.zone.run(() => this.news = news)
     })
   }
 
   openNews(newsItem: NewsItem) {
-    console.log('open news')
     const browser = this.iab.create(newsItem.url);
     browser.show()
-    //new InAppBrowser(newsItem.url, '_blank', 'location=no,closebuttoncaption=Stäng');
   }
 
   ngAfterViewInit(): void {

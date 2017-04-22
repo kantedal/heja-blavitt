@@ -61,6 +61,7 @@ export class Server {
 
     // Run news fetcher and repeat every 5 minutes
     let newsFetcher = new NewsFetcher()
+    newsFetcher.run()
     setInterval(() => newsFetcher.run(), 1000 * 60 * 5)
   }
 }

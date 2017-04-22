@@ -1,5 +1,5 @@
 import * as express from "express";
-import NewsAPI from "./models/news-api";
+import NewsAPI from "./news-api";
 
 export default class API {
   private _server: any

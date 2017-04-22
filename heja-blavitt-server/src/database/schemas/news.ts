@@ -7,7 +7,7 @@ export let newsSchema: Schema = new Schema({
   pubDate: Number,
   title: String,
   content: String,
-  source: String,
+  feedName: String,
   url: String,
   imgUrl: String,
   votes: Number,
