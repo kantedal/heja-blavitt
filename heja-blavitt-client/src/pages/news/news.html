@@ -1,12 +1,17 @@
 <ion-content>
   <ion-list style="padding:0px;">
-    <ng-container *ngFor="let newsItem of news; let i = index">
-      <news-box
-        *ngIf="storageService.disabledNewsFeeds[newsItem.feedName] == null"
-        [newsItem]="newsItem"
-        [newsIndex]="i"
-      ></news-box>
-    </ng-container>
+    <news-box
+      *ngFor="let newsItem of (news | newsFilter); let i = index"
+      [newsItem]="newsItem"
+      [newsIndex]="i"
+    ></news-box>
+    <!--<ng-container *ngFor="let newsItem of news; let i = index">-->
+      <!--<news-box-->
+        <!--*ngIf="storageService.disabledNewsFeeds[newsItem.feedName] == null"-->
+        <!--[newsItem]="newsItem"-->
+        <!--[newsIndex]="i"-->
+      <!--&gt;</news-box>-->
+    <!--</ng-container>-->
 
     <div class="bottom-spinner">
       <spinner [size]="35" [tickness]="2" [color]="'#ffffff'"></spinner>

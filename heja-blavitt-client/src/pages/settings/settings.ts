@@ -17,7 +17,6 @@ export class SettingsPage implements AfterViewInit, OnInit {
   }
 
   newsFeedChecked(event, newsFeed: INewsFeed) {
-    console.log(event, newsFeed)
     this.storageService.toggleNewsFeed(newsFeed.name, event.checked)
   }
 
