@@ -24381,7 +24381,7 @@ ion-navbar.toolbar {
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 5.0em;
+  max-height: 4.9em;
   line-height: 1.25em;
   font-weight: 400;
 }
