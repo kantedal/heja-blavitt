@@ -19,6 +19,7 @@ class NewsFetcher {
             url: newsItemRss.link,
             imgUrl: newsItemRss.thumbnail ? newsItemRss.thumbnail : null,
             votes: 0,
+            views: 0,
             comments: []
         };
         server_1.NewsModel.findOneAndUpdate({ newsId: newsItemRss.id }, { $setOnInsert: update }, { upsert: true }, (error, result) => { });
@@ -39,7 +40,6 @@ class NewsFetcher {
                     break;
                 }
             }
-            console.log(newsItem.title, allowed);
             if (!allowed) {
                 return false;
             }

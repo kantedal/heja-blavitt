@@ -52,6 +52,25 @@ class NewsAPI {
                 }
             });
         });
+        router.get('/voteNews', (req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            let newsId = req.query.newsId;
+            let vote = parseInt(req.query.vote);
+            server_1.NewsModel.findOneAndUpdate({ newsId: newsId }, { $inc: { votes: vote } }, { upsert: true }, (error, newsItem) => {
+                if (!error) {
+                    res.json({ newCount: newsItem.votes + vote });
+                }
+            });
+        });
+        router.get('/incrementViews', (req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            let newsId = req.query.newsId;
+            server_1.NewsModel.findOneAndUpdate({ newsId: newsId }, { $inc: { views: 1 } }, { upsert: true }, (error, newsItem) => {
+                if (!error) {
+                    res.json({ views: newsItem.views + 1 });
+                }
+            });
+        });
     }
 }
 exports.default = NewsAPI;
