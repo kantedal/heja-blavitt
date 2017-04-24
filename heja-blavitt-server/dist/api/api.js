@@ -8,7 +8,6 @@ class API {
         this.init();
     }
     init() {
-        this._server = this.app.listen(8080, "localhost", () => { console.log('running at http://' + this._server.address().address + ':' + this._server.address().port); });
         this._router = express.Router();
         this._router.get('/', (req, res) => {
             res.json({ message: 'hooray! welcome to our api!' });
