@@ -34,3 +34,16 @@
 #ion-diagnostics {
   visibility: hidden;
 }
+
+.has-refresher > .scroll-content {
+  border-top: none;
+}
+
+.spinner-md-crescent circle {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+
+.refresher-pulling-icon, .refresher-refreshing-icon {
+  color: #fff !important;
+}

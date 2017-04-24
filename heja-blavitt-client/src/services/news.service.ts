@@ -25,27 +25,6 @@ export class NewsService {
     this.fetchNews()
   }
 
-  public getNewsFeeds(): Promise<any> {
-    this.newsFeedsLoading = true
-    return this.http.get(SERVER_ADDRESS + 'api/getNewsFeeds')
-    .toPromise()
-    .then((res: Response) => {
-      let body = res.json()
-
-      let feeds: INewsFeed[] = []
-      for (let feedId in body.Feeds) {
-        let feed = body.Feeds[feedId]
-        feeds.push({
-          name: feed.name,
-          id: feedId
-        })
-      }
-
-      this.newsFeeds.next(feeds)
-      this.newsFeedsLoading = false
-    })
-  }
-
   public fetchNews() {
     if (!this._isFetchingNews) {
       this._isFetchingNews = true
@@ -73,6 +52,48 @@ export class NewsService {
         this._isFetchingNews = false
       })
     }
+  }
+
+  public updateNews(): Promise<any> {
+    let params: URLSearchParams = new URLSearchParams()
+    params.set('latestNewsId', this._news.getValue()[0].newsId)
+
+    return this.http.get(SERVER_ADDRESS + 'api/updateNews', { search: params })
+      .toPromise()
+      .then((res: Response) => {
+        let body = res.json()
+        let newNews = body.news
+
+        if (newNews.length == 0) return true
+
+        for (let newsItem of this._news.getValue()) {
+          newNews.push(newsItem)
+        }
+        this._news.next(newNews)
+
+        return true
+      })
+  }
+
+  public getNewsFeeds(): Promise<any> {
+    this.newsFeedsLoading = true
+    return this.http.get(SERVER_ADDRESS + 'api/getNewsFeeds')
+      .toPromise()
+      .then((res: Response) => {
+        let body = res.json()
+
+        let feeds: INewsFeed[] = []
+        for (let feedId in body.Feeds) {
+          let feed = body.Feeds[feedId]
+          feeds.push({
+            name: feed.name,
+            id: feedId
+          })
+        }
+
+        this.newsFeeds.next(feeds)
+        this.newsFeedsLoading = false
+      })
   }
 
   public voteNews(newsItem: NewsItem, vote: number) {

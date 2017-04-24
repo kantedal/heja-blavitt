@@ -32,6 +32,10 @@ export class NewsPage implements AfterViewInit {
     browser.show()
   }
 
+  doRefresh(refresher) {
+    this.newsService.updateNews().then(() => refresher.complete())
+  }
+
   ngAfterViewInit(): void {
     this.content.ionScrollEnd.subscribe(e => {
       if (e.scrollElement.scrollHeight - e.scrollHeight - e.scrollTop < 10) {

@@ -17,6 +17,27 @@ class NewsAPI {
                 .limit(limit)
                 .skip(skip);
         });
+        router.get('/updateNews', (req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            let latestNewsId = req.query.latestNewsId;
+            server_1.NewsModel.find((err, news) => {
+                if (err)
+                    throw err;
+                let newNews = [];
+                for (let newsItem of news) {
+                    console.log(newsItem.newsId, latestNewsId);
+                    if (newsItem.newsId == latestNewsId) {
+                        break;
+                    }
+                    else {
+                        newNews.push(newsItem);
+                    }
+                }
+                res.json({ news: newNews });
+            })
+                .sort({ 'pubDate': -1 })
+                .limit(5);
+        });
         router.get('/getNewsFeeds', (req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.json({ Feeds: feeds_1.Feeds });

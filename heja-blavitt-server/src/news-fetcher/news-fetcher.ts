@@ -1,8 +1,9 @@
 import * as moment from "moment";
 import * as request from "request";
 import {Feeds} from "./feeds";
-import {SearchWords} from "./search-words";
+import {SearchWords, ForbiddenWords} from "./search-words";
 import {NewsModel} from "../server";
+import {newsSchema} from "../database/schemas/news";
 
 const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=';
 const API_KEY = '&api_key=omchsk2zbyq4l1cinhzq9dbcta20snqy9yvpguf5';
@@ -31,16 +32,35 @@ export class NewsFetcher {
     )
   }
 
-  private allowedNewsSource(INewsItemRSS: INewsItemRSS, feed: IFeed): boolean {
-    if (INewsItemRSS.title == '' || INewsItemRSS.content == '') return false
-    if (INewsItemRSS.title == null || INewsItemRSS.content == null) return false
+  private allowedNewsSource(newsItem: INewsItemRSS, feed: IFeed): boolean {
+    if (newsItem.title == '' || newsItem.content == '') return false
+    if (newsItem.title == null || newsItem.content == null) return false
 
     if (Feeds[feed.url].directlyAllowed) return true;
 
+    let strippedContent = newsItem.content.substring(1, 180)
+
+    // Check for forbidden words in article
+    for (let forbiddenWords of ForbiddenWords) {
+      let allowed = false
+      for (let forbiddenWord of forbiddenWords) {
+        if(newsItem.title.toLowerCase().search(forbiddenWord) == -1) {
+          allowed = true
+          break
+        }
+      }
+
+      console.log(newsItem.title, allowed)
+      if (!allowed) {
+        return false
+      }
+    }
+
+    // Check for allowed words in article
     for (let searchWord of SearchWords) {
-      if(INewsItemRSS.content.toLowerCase().search(searchWord) != -1 ||
-        INewsItemRSS.title.toLowerCase().search(searchWord) != -1 ||
-        INewsItemRSS.link.toLowerCase().search(searchWord) != -1) {
+      if(strippedContent.toLowerCase().search(searchWord) != -1 ||
+        newsItem.title.toLowerCase().search(searchWord) != -1 ||
+        newsItem.link.toLowerCase().search(searchWord) != -1) {
         return true;
       }
     }

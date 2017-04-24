@@ -12,7 +12,7 @@ exports.Feeds = {
     "http://blogg.gp.se/sillyseason/feed/": { name: "GP blogg", directlyAllowed: false },
     "http://bloggar.aftonbladet.se/sillyseason/tag/ifk-goteborg/feed/": { name: "Sportbladet Sillyseason", directlyAllowed: false },
     "http://bloggar.expressen.se/fotbollssilly/feed/": { name: "Expressen blogg", directlyAllowed: false },
-    "http://sillyseason.se/feed/": { name: "Expressen blogg", directlyAllowed: false },
+    "http://sillyseason.se/feed/": { name: "Sillyseason.se", directlyAllowed: false },
     "http://www.ifkgoteborg.se/AssetsWeb/Views/Templates/RssFeed.aspx": { name: "IFK Göteborg officiell", directlyAllowed: true },
     "http://www.fotbollskanalen.se/allsvenskan/rss": { name: "Fotbollskanalen", directlyAllowed: false },
     "http://bloggar.expressen.se/snackamedleman/feed/": { name: "Snacka med Leman", directlyAllowed: false },

@@ -23,17 +23,31 @@ class NewsFetcher {
         };
         server_1.NewsModel.findOneAndUpdate({ newsId: newsItemRss.id }, { $setOnInsert: update }, { upsert: true }, (error, result) => { });
     }
-    allowedNewsSource(INewsItemRSS, feed) {
-        if (INewsItemRSS.title == '' || INewsItemRSS.content == '')
+    allowedNewsSource(newsItem, feed) {
+        if (newsItem.title == '' || newsItem.content == '')
             return false;
-        if (INewsItemRSS.title == null || INewsItemRSS.content == null)
+        if (newsItem.title == null || newsItem.content == null)
             return false;
         if (feeds_1.Feeds[feed.url].directlyAllowed)
             return true;
+        let strippedContent = newsItem.content.substring(1, 180);
+        for (let forbiddenWords of search_words_1.ForbiddenWords) {
+            let allowed = false;
+            for (let forbiddenWord of forbiddenWords) {
+                if (newsItem.title.toLowerCase().search(forbiddenWord) == -1) {
+                    allowed = true;
+                    break;
+                }
+            }
+            console.log(newsItem.title, allowed);
+            if (!allowed) {
+                return false;
+            }
+        }
         for (let searchWord of search_words_1.SearchWords) {
-            if (INewsItemRSS.content.toLowerCase().search(searchWord) != -1 ||
-                INewsItemRSS.title.toLowerCase().search(searchWord) != -1 ||
-                INewsItemRSS.link.toLowerCase().search(searchWord) != -1) {
+            if (strippedContent.toLowerCase().search(searchWord) != -1 ||
+                newsItem.title.toLowerCase().search(searchWord) != -1 ||
+                newsItem.link.toLowerCase().search(searchWord) != -1) {
                 return true;
             }
         }

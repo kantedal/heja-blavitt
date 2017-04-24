@@ -33,7 +33,7 @@ export const Feeds = {
     { name: "Expressen blogg", directlyAllowed: false },
 
   "http://sillyseason.se/feed/":
-    { name: "Expressen blogg", directlyAllowed: false },
+    { name: "Sillyseason.se", directlyAllowed: false },
 
   "http://www.ifkgoteborg.se/AssetsWeb/Views/Templates/RssFeed.aspx":
     { name: "IFK Göteborg officiell", directlyAllowed: true },
