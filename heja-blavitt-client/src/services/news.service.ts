@@ -55,24 +55,49 @@ export class NewsService {
   }
 
   public updateNews(): Promise<any> {
-    let params: URLSearchParams = new URLSearchParams()
-    params.set('latestNewsId', this._news.getValue()[0].newsId)
+    this._isFetchingNews = true
+    this._fetchedNews = 0
 
-    return this.http.get(SERVER_ADDRESS + 'api/updateNews', { search: params })
+    let params: URLSearchParams = new URLSearchParams()
+    params.set('skip', this._fetchedNews.toString())
+    params.set('fetchCount', NEWS_FETCH_COUNT.toString())
+
+    return this.http.get(SERVER_ADDRESS + 'api/getNews', { search: params })
       .toPromise()
       .then((res: Response) => {
         let body = res.json()
-        let newNews = body.news
 
-        if (newNews.length == 0) return true
-
-        for (let newsItem of this._news.getValue()) {
-          newNews.push(newsItem)
+        let storedNewsVotes = this.storageService.votedNews
+        let news: NewsItem[] = []
+        for (let newsJson of body.news) {
+          let newsItem = NewsItem.mapFromJSON(newsJson)
+          newsItem.currentUserVote = storedNewsVotes[newsItem.newsId] ? storedNewsVotes[newsItem.newsId] : 0
+          news.push(newsItem)
         }
-        this._news.next(newNews)
 
-        return true
+        this._news.next(news)
+
+        this._fetchedNews += 15
+        this._isFetchingNews = false
       })
+    // let params: URLSearchParams = new URLSearchParams()
+    // params.set('latestNewsId', this._news.getValue()[0].newsId)
+    //
+    // return this.http.get(SERVER_ADDRESS + 'api/updateNews', { search: params })
+    //   .toPromise()
+    //   .then((res: Response) => {
+    //     let body = res.json()
+    //     let newNews = body.news
+    //
+    //     if (newNews.length == 0) return true
+    //
+    //     for (let newsItem of this._news.getValue()) {
+    //       newNews.push(newsItem)
+    //     }
+    //     this._news.next(newNews)
+    //
+    //     return true
+    //   })
   }
 
   public getNewsFeeds(): Promise<any> {

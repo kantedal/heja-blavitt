@@ -1,19 +1,21 @@
-<ion-grid no-padding>
-  <menu-item
-    *ngFor="let page of pages"
-    [title]="page.title"
-    [icon]="page.icon"
-    [isSelected]="page.isSelected"
-    (click)="selectMenuItem(page)">
+<div style="width: 100%; height: 100%;" [style.background]="screenSizeService.isLargerThan('lg') | async | sideMenuColor">
+  <ion-grid no-padding>
+    <menu-item
+      *ngFor="let page of pages"
+      [title]="page.title"
+      [icon]="page.icon"
+      [isSelected]="page.isSelected"
+      (click)="selectMenuItem(page)">
 
-  </menu-item>
-</ion-grid>
+    </menu-item>
+  </ion-grid>
 
-<div class="user-container">
-  <div class="login-container" (click)="openLoginModal()">
-    <span class="login-icon">
-      <ion-icon name="md-log-in"></ion-icon>
-    </span>
-    Logga in
+  <div class="user-container">
+    <div class="login-container" (click)="openLoginModal()">
+      <span class="login-icon">
+        <ion-icon name="md-log-in"></ion-icon>
+      </span>
+      Logga in
+    </div>
   </div>
 </div>

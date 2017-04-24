@@ -3,3 +3,13 @@
   text-align: center;
   margin-top: 15px;
 }
+
+[noScroll] {
+  overflow: hidden;
+  position: fixed;
+  pointer-events: none;
+}
+
+[scroll] {
+  pointer-events: all;
+}

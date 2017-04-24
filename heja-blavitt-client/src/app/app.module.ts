@@ -19,6 +19,8 @@ import {DateFormatterPipe} from "../pipes/date-formatter.pipe";
 import {SettingsPage} from "../pages/settings/settings";
 import {DiscussionPage} from "../pages/discussion/discussion";
 import {NewsFilterPipe} from "../pipes/news-filter.pipe";
+import {ScreenSizeService} from "../services/screen-size.service";
+import {SideMenuColorPipe} from "../pipes/side-menu-color.pipe";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import {NewsFilterPipe} from "../pipes/news-filter.pipe";
     MenuItemComponent,
 
     DateFormatterPipe,
-    NewsFilterPipe
+    NewsFilterPipe,
+    SideMenuColorPipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import {NewsFilterPipe} from "../pipes/news-filter.pipe";
     //{provide: ErrorHandler, useClass: IonicErrorHandler},
     NewsService,
     UserService,
-    StorageService
+    StorageService,
+    ScreenSizeService
   ]
 })
 export class AppModule {}

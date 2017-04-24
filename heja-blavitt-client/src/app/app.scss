@@ -47,3 +47,15 @@
 .refresher-pulling-icon, .refresher-refreshing-icon {
   color: #fff !important;
 }
+
+[noScroll] {
+  overflow: hidden;
+  position: fixed;
+}
+
+.scroll-content {
+}
+
+ion-backdrop {
+  pointer-events: none;
+}
