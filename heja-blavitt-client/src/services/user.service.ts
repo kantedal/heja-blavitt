@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {BehaviorSubject} from "rxjs";
-import {IUser, createUser} from "../models/user";
 
 @Injectable()
 export class UserService {
@@ -20,7 +19,7 @@ export class UserService {
   }
 
   public register(username: string, password: string, email: string) {
-    let user: IUser = createUser(username, password, email)
+    //let user: IUser = createUser(username, password, email)
 
   }
 }

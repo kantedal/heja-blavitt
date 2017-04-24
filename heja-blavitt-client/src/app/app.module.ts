@@ -38,7 +38,7 @@ import {NewsFilterPipe} from "../pipes/news-filter.pipe";
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, { mode: 'md' }),
     SpinnerModule
   ],
   bootstrap: [IonicApp],

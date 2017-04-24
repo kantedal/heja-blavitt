@@ -9,6 +9,8 @@ export default class NewsAPI {
       Fetch news
      */
     router.get('/getNews', (req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*')
+
       let limit = parseInt(req.query.fetchCount)
       let skip = parseInt(req.query.skip)
 
@@ -24,14 +26,19 @@ export default class NewsAPI {
     /*
      Fetch news feeds
      */
-    router.get('/getNewsFeeds', (req, res) => res.json({ Feeds }))
+    router.get('/getNewsFeeds', (req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      res.json({ Feeds })
+    })
 
     /*
      Vote news call
      */
-    router.put('/voteNews', (req, res) => {
-      let newsId = req.body.newsId
-      let vote = parseInt(req.body.vote)
+    router.get('/voteNews', (req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*')
+
+      let newsId = req.query.newsId
+      let vote = parseInt(req.query.vote)
 
       NewsModel.findOneAndUpdate(
         { newsId: newsId },

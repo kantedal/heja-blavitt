@@ -30,6 +30,10 @@ class Server {
         exports.NewsModel = connection.model("NewsItem", news_1.newsSchema);
         this.app.use((err, req, res, next) => {
             err.status = 404;
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+            res.setHeader('Access-Control-Allow-Credentials', true);
             next(err);
         });
         this.app.use(errorHandler());

@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core'
-import {BehaviorSubject, Observable} from 'rxjs'
-import NewsItem from '../models/news-item.model'
-import {Http, Response, Headers, URLSearchParams, RequestOptions} from "@angular/http";
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, Observable} from "rxjs";
+import NewsItem from "../models/news-item.model";
+import {Http, Response, URLSearchParams} from "@angular/http";
 import {StorageService} from "./storage.service";
 import {INewsFeed} from "../interfaces/news-source";
+import {SERVER_ADDRESS} from "../config";
 
 export const NEWS_FETCH_COUNT = 15
 
@@ -26,7 +27,7 @@ export class NewsService {
 
   public getNewsFeeds(): Promise<any> {
     this.newsFeedsLoading = true
-    return this.http.get('http://localhost:8080/api/getNewsFeeds')
+    return this.http.get(SERVER_ADDRESS + 'api/getNewsFeeds')
     .toPromise()
     .then((res: Response) => {
       let body = res.json()
@@ -49,11 +50,11 @@ export class NewsService {
     if (!this._isFetchingNews) {
       this._isFetchingNews = true
 
-      let params: URLSearchParams = new URLSearchParams();
-      params.set('skip', this._fetchedNews.toString());
-      params.set('fetchCount', NEWS_FETCH_COUNT.toString());
+      let params: URLSearchParams = new URLSearchParams()
+      params.set('skip', this._fetchedNews.toString())
+      params.set('fetchCount', NEWS_FETCH_COUNT.toString())
 
-      this.http.get('http://localhost:8080/api/getNews', { search: params })
+      this.http.get(SERVER_ADDRESS + 'api/getNews', { search: params })
       .toPromise()
       .then((res: Response) => {
         let body = res.json()
@@ -75,15 +76,18 @@ export class NewsService {
   }
 
   public voteNews(newsItem: NewsItem, vote: number) {
+    console.log('test test')
     if (newsItem.currentUserVote == 0) {
-      let bodyString = JSON.stringify({ newsId: newsItem.newsId, vote }); // Stringify payload
-      let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-      let options = new RequestOptions({ headers: headers });
+      let params: URLSearchParams = new URLSearchParams()
+      params.set('vote', vote.toString())
+      params.set('newsId', newsItem.newsId)
 
-      this.http.put('http://localhost:8080/api/voteNews', bodyString, options)
+      this.http.get(SERVER_ADDRESS + 'api/voteNews', { search: params })
         .toPromise()
         .then((res: any) => {
-          newsItem.votes = JSON.parse(res._body).newCount
+          let body = res.json()
+
+          newsItem.votes = body.newCount
           newsItem.currentUserVote = vote
           this.storageService.storeVote(newsItem.newsId, vote)
         })
@@ -94,5 +98,4 @@ export class NewsService {
   }
 
   get news(): Observable<NewsItem[]> { return this._news.asObservable() }
-  get test(): Observable<NewsItem[]> { return this._news }
 }

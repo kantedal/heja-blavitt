@@ -14,6 +14,7 @@ export default class API {
     //this._server = this.app.listen(3000, '192.168.2.159' , () => { console.log('running at http://' + this._server.address().address + ':' + this._server.address().port) })
 
     this._router = express.Router();
+
     this._router.get('/', (req, res) => {
       res.json({ message: 'hooray! welcome to our api!' });
     });

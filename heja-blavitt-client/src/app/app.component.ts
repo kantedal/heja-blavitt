@@ -8,7 +8,6 @@ import {IPage, Pages} from "../models/pages";
 import {EventTypes} from "../models/event-types";
 import {LoginPage} from "../pages/login/login";
 import {StorageService} from "../services/storage.service";
-import {SettingsPage} from "../pages/settings/settings";
 
 
 @Component({

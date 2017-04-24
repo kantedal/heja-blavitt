@@ -1,7 +1,5 @@
-import {Component} from '@angular/core'
-import {NavController, ViewController} from 'ionic-angular'
-import NewsItem from '../../models/news-item.model'
-import {NewsService} from '../../services/news.service'
+import {Component} from "@angular/core";
+import {ViewController} from "ionic-angular";
 
 @Component({
   selector: 'page-login',
