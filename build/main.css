@@ -14417,7 +14417,7 @@ ion-menu.show-menu {
   bottom: 0;
   left: 0;
   display: block;
-  width: 304px;
+  width: 200px;
   height: 100%;
   -webkit-transform: translate3d(-9999px, 0, 0);
   transform: translate3d(-9999px, 0, 0);
@@ -14460,7 +14460,7 @@ ion-menu ion-backdrop {
 
 @media (max-width: 340px) {
   .menu-inner {
-    width: 264px;
+    width: 160px;
   }
 }
 
@@ -24333,6 +24333,28 @@ ion-navbar.toolbar {
   visibility: hidden;
 }
 
+.has-refresher > .scroll-content {
+  border-top: none;
+}
+
+.spinner-md-crescent circle {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+
+.refresher-pulling-icon, .refresher-refreshing-icon {
+  color: #fff !important;
+}
+
+[noScroll] {
+  overflow: hidden;
+  position: fixed;
+}
+
+ion-backdrop {
+  pointer-events: none;
+}
+
 .menu-item {
   color: #ffffff;
   background: rgba(255, 255, 255, 0);
@@ -24369,7 +24391,7 @@ ion-navbar.toolbar {
 .news-header {
   font-size: 12pt;
   line-height: 14pt;
-  max-height: 28pt;
+  max-height: 27pt;
   margin-bottom: 8px;
   font-weight: 600;
   overflow: hidden;
@@ -24526,6 +24548,16 @@ ion-navbar.toolbar {
   width: 100%;
   text-align: center;
   margin-top: 15px;
+}
+
+[noScroll] {
+  overflow: hidden;
+  position: fixed;
+  pointer-events: none;
+}
+
+[scroll] {
+  pointer-events: all;
 }
 
 .news-feed-box {
