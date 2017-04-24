@@ -24471,6 +24471,17 @@ ion-backdrop {
   font-weight: 200;
   font-size: 13px;
   padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.footer-row {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .user-container {
