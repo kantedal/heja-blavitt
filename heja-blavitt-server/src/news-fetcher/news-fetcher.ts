@@ -3,7 +3,6 @@ import * as request from "request";
 import {Feeds} from "./feeds";
 import {SearchWords, ForbiddenWords} from "./search-words";
 import {NewsModel} from "../server";
-import {newsSchema} from "../database/schemas/news";
 
 const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=';
 const API_KEY = '&api_key=omchsk2zbyq4l1cinhzq9dbcta20snqy9yvpguf5';
@@ -21,6 +20,7 @@ export class NewsFetcher {
       url: newsItemRss.link,
       imgUrl: newsItemRss.thumbnail ? newsItemRss.thumbnail : null,
       votes: 0,
+      views: 0,
       comments: []
     }
 
@@ -50,7 +50,6 @@ export class NewsFetcher {
         }
       }
 
-      console.log(newsItem.title, allowed)
       if (!allowed) {
         return false
       }

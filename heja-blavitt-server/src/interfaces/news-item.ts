@@ -14,5 +14,6 @@ export interface INewsItem {
   url: string
   imgUrl: string
   votes: number
+  views: number
   comments: INewsComment[]
 }

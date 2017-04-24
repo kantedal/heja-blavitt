@@ -45,7 +45,6 @@ export default class NewsAPI {
           }
         }
 
-
         res.json({ news: newNews })
       })
       .sort({'pubDate': -1})
@@ -76,6 +75,46 @@ export default class NewsAPI {
         (error, newsItem) => {
           if (!error) {
             res.json({ newCount: newsItem.votes + vote })
+          }
+        }
+      )
+    })
+
+    /*
+     Vote news call
+     */
+    router.get('/voteNews', (req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*')
+
+      let newsId = req.query.newsId
+      let vote = parseInt(req.query.vote)
+
+      NewsModel.findOneAndUpdate(
+        { newsId: newsId },
+        { $inc : { votes: vote } },
+        { upsert : true },
+        (error, newsItem) => {
+          if (!error) {
+            res.json({ newCount: newsItem.votes + vote })
+          }
+        }
+      )
+    })
+
+    /*
+     Vote news call
+     */
+    router.get('/incrementViews', (req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      let newsId = req.query.newsId
+
+      NewsModel.findOneAndUpdate(
+        { newsId: newsId },
+        { $inc : { views: 1 } },
+        { upsert : true },
+        (error, newsItem) => {
+          if (!error) {
+            res.json({ views: newsItem.views + 1 })
           }
         }
       )
